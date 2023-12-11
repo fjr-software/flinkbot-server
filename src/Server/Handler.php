@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Flinkbot\Server;
+namespace FjrSoftware\FlinkbotServer\Server;
 
 use Exception;
 use InvalidArgumentException;
@@ -45,7 +45,7 @@ class Handler
         self::BEFORE_ERROR,
         self::AFTER_ERROR,
     ];
-    
+
     private ConnectionInterface $connection;
     private TimerInterface $timer;
     private bool $timeOver = false;
@@ -72,7 +72,7 @@ class Handler
             if (!in_array($type, self::VALID_EVENTS)) {
                 throw new InvalidArgumentException("Invalid event type: {$type}");
             }
-    
+
             if (!is_callable($callback)) {
                 throw new InvalidArgumentException("Handler for {$type} is not callable");
             }

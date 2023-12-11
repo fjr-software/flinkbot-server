@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Flinkbot\Server;
+namespace FjrSoftware\FlinkbotServer\Server;
 
 use LogicException;
 use React\EventLoop\Loop;
@@ -14,7 +14,7 @@ class Server
     private LoopInterface $loop;
     private SocketServer $socket;
     private Handler $handler;
-    
+
     public function __construct(
         private readonly string  $address,
         private readonly array $events = [],

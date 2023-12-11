@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Flinkbot\Bot;
+namespace FjrSoftware\FlinkbotServer\Bot;
 
 class Bot
 {

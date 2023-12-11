@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Flinkbot\Bot;
+namespace FjrSoftware\FlinkbotServer\Bot;
 
 use React\EventLoop\Loop;
 use React\EventLoop\LoopInterface;
@@ -63,7 +63,7 @@ class Analyzer
 
     /**
      * Constructor
-     * 
+     *
      * @param int $botId
      */
     public function __construct(
@@ -89,7 +89,7 @@ class Analyzer
     {
         $this->loop->addPeriodicTimer(1, function ($timer) use (&$i, $symbol) {
             echo "Pending - {$symbol} " . date('Y-m-d H:i:s') . "\n";
-            
+
             if (++$i >= 30) {
                 $this->loop->cancelTimer($timer);
                 $this->exit();

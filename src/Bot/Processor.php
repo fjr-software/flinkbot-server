@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Flinkbot\Bot;
+namespace FjrSoftware\FlinkbotServer\Bot;
 
 use React\ChildProcess\Process;
 use React\EventLoop\Loop;
@@ -57,7 +57,7 @@ class Processor
 
     /**
      * Constructor
-     * 
+     *
      * @param int $customerId
      * @param array $bots
      */
@@ -81,7 +81,7 @@ class Processor
 
         $this->endTime = microtime(true);
     }
-    
+
     public function timeExecution(): ?float
     {
         if (!$this->startTime || !$this->endTime) {
@@ -105,20 +105,20 @@ class Processor
     public function closeProcess(int $botId, string $symbol, bool $force = false): void
     {
         $this->status[$botId][$symbol] = self::STATUS_STOP;
-        
+
         if ($process = ($this->process[$botId][$symbol] ?? false)) {
             if ($process->isRunning()) {
                 if ($force) {
                     foreach ($process->pipes as $pipe) {
                         $pipe->close();
                     }
-        
+
                     $process->terminate(Analyzer::RESULT_CLOSED);
                 } else {
                     $process->stdin->write('@STOP');
                     $process->stdin->end();
                 }
-            }   
+            }
         }
     }
 
@@ -129,7 +129,7 @@ class Processor
                 $this->status[$botId][$symbol] = self::STATUS_STOP;
             }
         }
-        
+
         if ($processList = ($this->process ?? [])) {
             foreach ($processList as $symbols) {
                 foreach ($symbols as $process) {
@@ -138,7 +138,7 @@ class Processor
                             foreach ($process->pipes as $pipe) {
                                 $pipe->close();
                             }
-                
+
                             $process->terminate(Analyzer::RESULT_CLOSED);
                         } else {
                             $process->stdin->write('@STOP');
@@ -198,18 +198,18 @@ class Processor
                         if ($exitCode !== Analyzer::RESULT_RESTART) {
                             $this->retrys[$botId][$symbol]++;
                         }
-        
+
                         if ($this->retrys[$botId][$symbol] >= self::MAX_RETRY) {
                             echo "Tentativas maximas Bot-{$this->customerId}-{$botId}-{$symbol}\n";
                         } else {
                             $mgs = 'Iniciando Bot';
-                            
+
                             if ($exitCode !== Analyzer::RESULT_RESTART) {
                                 $mgs = 'Erro ao processar Bot';
                             }
-        
+
                             echo "{$mgs}-{$this->customerId}-{$botId}-{$symbol} - {$exitCode}:{$termSignal}\n";
-        
+
                             $this->loop->futureTick(function () use ($botId, $symbol) {
                                 $this->process[$botId][$symbol] = $this->retrySymbol($botId, $symbol);
                             });
