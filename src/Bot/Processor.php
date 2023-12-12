@@ -236,7 +236,7 @@ class Processor
     {
         return [
             '/usr/bin/php',
-            dirname(__DIR__, 2). '/process.php',
+            dirname(__DIR__, 2). '/service/process.php',
             '--type=symbol',
             "--bot={$botId}",
             "--symbol={$symbol}"
