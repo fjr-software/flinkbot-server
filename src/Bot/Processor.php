@@ -64,6 +64,7 @@ class Processor
     public function __construct(
         private readonly int $customerId,
         private readonly array $bots,
+        private readonly string $processFile,
         private readonly int $timeout = 60
     ) {
         $this->loop = Loop::get();
@@ -236,7 +237,7 @@ class Processor
     {
         return [
             '/usr/bin/php',
-            dirname(__DIR__, 2). '/service/process.php',
+            $this->processFile,
             '--type=symbol',
             "--bot={$botId}",
             "--symbol={$symbol}"

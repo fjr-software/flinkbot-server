@@ -10,7 +10,9 @@ class Bot
     private bool $isRunning = false;
 
     public function __construct(
-        private readonly int $customerId
+        private readonly int $customerId,
+        private readonly string $processFile,
+        private readonly int $timeout
     ) {
         $this->load();
     }
@@ -20,7 +22,8 @@ class Bot
         $this->processor = new Processor(
             $this->customerId,
             $this->getData()['customer'][$this->customerId]['bots'],
-            60
+            $this->processFile,
+            $this->timeout
         );
     }
 
