@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FjrSoftware\FlinkbotServer\Server;
+namespace FjrSoftware\Flinkbot\Server;
 
 use LogicException;
 use React\EventLoop\Loop;
